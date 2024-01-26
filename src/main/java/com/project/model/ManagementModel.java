@@ -31,6 +31,15 @@ public class ManagementModel implements Serializable {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataSaida;
 
+    @Column(nullable = false, length = 3000)
+    private String office;
+
+    @Column(length = 1000000000)
+    private String image;
+
+    @Column()
+    private String observacoes;
+
     public ManagementModel(){}
 
     public Long getId() {
@@ -73,15 +82,39 @@ public class ManagementModel implements Serializable {
         this.dataSaida = dataSaida;
     }
 
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ManagementModel that)) return false;
-        return Double.compare(salary, that.salary) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(dataEntrada, that.dataEntrada) && Objects.equals(dataSaida, that.dataSaida);
+        return Double.compare(salary, that.salary) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(dataEntrada, that.dataEntrada) && Objects.equals(dataSaida, that.dataSaida) && Objects.equals(office, that.office) && Objects.equals(image, that.image) && Objects.equals(observacoes, that.observacoes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, salary, dataEntrada, dataSaida);
+        return Objects.hash(id, name, salary, dataEntrada, dataSaida, office, image, observacoes);
     }
 }

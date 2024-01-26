@@ -19,7 +19,6 @@ public class ManagementService {
     public List<ManagementModel> findAll(){
         logger.info("requesting employeers");
 
-
         return repository.findAll();
     }
 
@@ -43,6 +42,9 @@ public class ManagementService {
         entity.setSalary(model.getSalary());
         entity.setDataEntrada(model.getDataEntrada());
         entity.setDataSaida(model.getDataSaida());
+        entity.setImage(model.getImage());
+        entity.setOffice(model.getOffice());
+        entity.setObservacoes(model.getObservacoes());
 
         return repository.save(model);
     }
