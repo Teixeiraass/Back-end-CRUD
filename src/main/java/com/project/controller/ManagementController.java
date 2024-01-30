@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import com.project.data.vo.v1.ManagementVO;
 import com.project.model.ManagementModel;
 import com.project.service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +18,25 @@ public class ManagementController {
     private ManagementService service;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ManagementModel> findAll(){
+    public List<ManagementVO> findAll(){
         return service.findAll();
     }
 
     @GetMapping(value = "/{id}",
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public ManagementModel findById(@PathVariable(value = "id") Long id){
+    public ManagementVO findById(@PathVariable(value = "id") Long id){
         return service.findById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public ManagementModel create(@RequestBody ManagementModel modal){
+    public ManagementVO create(@RequestBody ManagementModel modal){
         return service.create(modal);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public ManagementModel update(@RequestBody ManagementModel modal){
+    public ManagementVO update(@RequestBody ManagementModel modal){
         return service.update(modal);
     }
 

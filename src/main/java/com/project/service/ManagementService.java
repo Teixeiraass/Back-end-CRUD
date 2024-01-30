@@ -1,5 +1,7 @@
 package com.project.service;
 
+import com.project.data.vo.v1.ManagementVO;
+import com.project.model.DozerMapper;
 import com.project.model.ManagementModel;
 import com.project.repositories.RepositoryManagement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +18,34 @@ public class ManagementService {
     @Autowired
     RepositoryManagement repository;
 
-    public List<ManagementModel> findAll(){
+    public List<ManagementVO> findAll(){
         logger.info("requesting employeers");
 
-        return repository.findAll();
+        return DozerMapper.parseListObject(repository.findAll(), ManagementVO.class);
     }
 
-    public ManagementModel findById(Long id){
+    public ManagementVO findById(Long id){
         logger.info("requesting employeer by id");
 
-        return repository.findById(id).orElseThrow();
+        var entity =repository.findById(id).orElseThrow();
+
+        return DozerMapper.parseObject(entity, ManagementVO.class);
     }
 
-    public ManagementModel create(ManagementModel model){
+    public ManagementVO create(ManagementModel model){
         logger.info("Creating new employeer");
 
-        return repository.save(model);
+        var entity = DozerMapper.parseObject(model, ManagementModel.class);
+        var vo =DozerMapper.parseObject(repository.save(entity), ManagementVO.class);
+
+        return vo;
     }
 
-    public ManagementModel update(ManagementModel model){
+    public ManagementVO update(ManagementModel model){
         logger.info("Updating the employeer");
 
         var entity = repository.findById(model.getId()).orElseThrow();
+
         entity.setName(model.getName());
         entity.setSalary(model.getSalary());
         entity.setDataEntrada(model.getDataEntrada());
@@ -46,7 +54,9 @@ public class ManagementService {
         entity.setOffice(model.getOffice());
         entity.setObservacoes(model.getObservacoes());
 
-        return repository.save(model);
+        var vo =DozerMapper.parseObject(repository.save(entity), ManagementVO.class);
+
+        return vo;
     }
 
     public void delete(Long id){
@@ -56,7 +66,4 @@ public class ManagementService {
 
         repository.delete(entity);
     }
-
-
-
 }
