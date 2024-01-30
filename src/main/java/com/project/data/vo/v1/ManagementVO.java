@@ -1,53 +1,38 @@
-package com.project.model;
+package com.project.data.vo.v1;
 
-import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-@Entity
-@Table(name = "employees")
-public class ManagementModel extends RepresentationModel<ManagementModel> implements Serializable {
+public class ManagementVO extends RepresentationModel<ManagementVO> implements Serializable {
 
-    private static final long  serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @Column(nullable = false, length = 3000)
     private String name;
 
-    @Column(nullable = false)
     private double salary;
 
-    @Column()
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataEntrada;
 
-    @Column()
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataSaida;
 
-    @Column(nullable = false, length = 3000)
     private String office;
 
-    @Column(length = 1000000000)
     private String image;
 
-    @Column()
     private String observacoes;
 
-    public ManagementModel(){}
+    public ManagementVO(){}
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -110,12 +95,13 @@ public class ManagementModel extends RepresentationModel<ManagementModel> implem
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ManagementModel that)) return false;
-        return Double.compare(salary, that.salary) == 0 && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(dataEntrada, that.dataEntrada) && Objects.equals(dataSaida, that.dataSaida) && Objects.equals(office, that.office) && Objects.equals(image, that.image) && Objects.equals(observacoes, that.observacoes);
+        if (!(o instanceof ManagementVO that)) return false;
+        if (!super.equals(o)) return false;
+        return id == that.id && Double.compare(salary, that.salary) == 0 && Objects.equals(name, that.name) && Objects.equals(dataEntrada, that.dataEntrada) && Objects.equals(dataSaida, that.dataSaida) && Objects.equals(office, that.office) && Objects.equals(image, that.image) && Objects.equals(observacoes, that.observacoes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, salary, dataEntrada, dataSaida, office, image, observacoes);
+        return Objects.hash(super.hashCode(), id, name, salary, dataEntrada, dataSaida, office, image, observacoes);
     }
 }
